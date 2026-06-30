@@ -7,5 +7,5 @@ this is front of hire tracker using reactjs + tailwind
 # Auth & routes
 Auth and routes are added 
 
-#Final touch
+# Final touch
 today is final touch 
