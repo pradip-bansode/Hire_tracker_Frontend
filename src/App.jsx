@@ -1,43 +1,34 @@
-import { use, useState } from 'react'
-import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-import './App.css'
-import Navbar from './components/Navbar'
-import ApplicationForm from './components/ApplicationForm'
-import ApplicationList from './components/ApplicationList'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
-  const [refresh, setRefresh] = useState(0);
-   const [editApplication, setEditApplication] = useState(null);
-
-  const handleSave = ()=>{
-     setEditApplication(null);
-    setRefresh(prev => !prev);
-  }
-
-  const handleEdit = (application) => {
-    setEditApplication(application); // Form mai data bhejo
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Form tak scroll karo
-  };
-
   return (
-    <>
-    <div className="min-h-screen bg-grey-100">
-      <Navbar />
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
 
-      <div className="max-w-5x1 mx-auto px-4 py-8">
-        <ApplicationForm  onSave={handleSave}
-        editApplication={editApplication}/>
-        <h2 className="text-lg font-semibold text-grey-700 mb-4">
-          Application List
-        </h2>
-        <ApplicationList refresh={refresh} onEdit={handleEdit}/>
-      </div>
-      
-    </div>
-    </>
-  )
+          {/* Public Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+
+          {/* Protected Route — sirf logged in user dekh sakta hai */}
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          } />
+
+          {/* Default → Login pe bhejo */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

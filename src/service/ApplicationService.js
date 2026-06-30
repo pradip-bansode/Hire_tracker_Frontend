@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const base_url = 'http://localhost:8080/api/applications';
-const BASE_URL = 'http://localhost:8080/api/applications';
+const BASE_URL = 'http://localhost:8080/api';
 
 const AuthService={
     signup : (data) => axios.post(`${BASE_URL}/auth/signup` , data),
@@ -12,13 +12,13 @@ const AuthService={
 //application APIs
 // Har request ke saath token header mai bhejo
 const getAuthHeader=()=>({
-    Headers : {
+    headers : {
         Authorization : `Bearer ${localStorage.getItem(`token`)}`
     }
 })
 
 const ApplicationService =   {
-    getAll:  ()=>axios.get(`${BASE_URL}/application`,getAuthHeader()),
+    getAll:  ()=>axios.get(`${BASE_URL}/applications`,getAuthHeader()),
     
     create: (application)=>axios.post(`${BASE_URL}/applications`, application, getAuthHeader()),
     

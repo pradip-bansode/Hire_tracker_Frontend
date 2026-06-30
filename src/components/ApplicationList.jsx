@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ApplicationService from '../service/ApplicationService'
+import {ApplicationService} from '../service/ApplicationService'
 
 const ApplicationList = ({refresh, onEdit}) => {
     const [applications, setApplications] = useState([]);
