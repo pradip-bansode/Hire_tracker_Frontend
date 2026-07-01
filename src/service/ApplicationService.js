@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const base_url = 'http://localhost:8080/api/applications';
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'https://hire-tracker-backend.onrender.com/api';
 
 const AuthService={
     signup : (data) => axios.post(`${BASE_URL}/auth/signup` , data),
